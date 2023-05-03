@@ -1,13 +1,18 @@
-.checkBox{
-text-align: left;
-margin-top: 12px;
-margin-bottom: 12px;
-color: rgb(0, 56, 88);
-font-weight:600;
+.checkBox {
+  text-align: left;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  color: rgb(0, 56, 88);
+  font-weight: 600;
 }
-.error{
-    color: rgb(197, 0, 0);
-    margin-right:60%;
-     font-size: small;
-     margin-top: 0px;
- }
+.checkBoxError {
+  color: rgb(197, 0, 0);
+  margin-right: 40%;
+  font-size: small;
+  margin-top: 0px;
+}
+.checkBoxDetail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+}

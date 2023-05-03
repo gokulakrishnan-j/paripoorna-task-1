@@ -1,10 +1,10 @@
-.dropdown{
-    width: 90%;
-    padding: 8px;
+.dropdown {
+  width: 90%;
+  padding: 8px;
 }
-.error{
-    color: rgb(197, 0, 0);
-    margin-right:60%;
-    font-size: small;
-    margin-top: 0px;
+.error {
+  color: rgb(197, 0, 0);
+  margin-right: 60%;
+  font-size: small;
+  margin-top: 0px;
 }

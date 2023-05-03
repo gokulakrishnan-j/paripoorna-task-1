@@ -1,13 +1,12 @@
-.td{
-    padding: 8px;
-    background-color: rgb(221, 221, 221);
+.td {
+  padding: 8px;
+  background-color: rgb(221, 221, 221);
 }
-.table{
-    border: 1px solid black;
-    margin-top: 12px;
-    width: 100%;
-    margin-top: 20px;
-    margin-bottom: 8px;
-    background-color: black;
-   
+.table {
+  border: 1px solid black;
+  margin-top: 12px;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  background-color: black;
 }
