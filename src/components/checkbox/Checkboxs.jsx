@@ -12,6 +12,7 @@ function Checkboxs({ rest }) {
             <div key={i}>
               <label htmlFor={rest.name}>{d}</label>
               <input
+                className="checkboxInput"
                 id={rest.name}
                 type={rest.type}
                 name={rest.name}

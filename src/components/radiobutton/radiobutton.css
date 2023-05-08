@@ -1,12 +1,14 @@
-.label{
-   display: flex;
-   font-weight: bold;
-   color: rgb(77, 0, 150);
-
+.label {
+  display: flex;
+  font-weight: bold;
+  color: rgb(77, 0, 150);
 }
-.error{
-   color: rgb(197, 0, 0);
-   margin-right:60%;
-    font-size: small;
-    margin-top: 0px;
+.error {
+  color: rgb(197, 0, 0);
+  margin-right: 60%;
+  font-size: small;
+  margin-top: 0px;
+}
+.radioButtonInput {
+  cursor: pointer;
 }

@@ -1,6 +1,7 @@
 .dropdown {
   width: 90%;
   padding: 8px;
+  cursor: pointer;
 }
 .error {
   color: rgb(197, 0, 0);

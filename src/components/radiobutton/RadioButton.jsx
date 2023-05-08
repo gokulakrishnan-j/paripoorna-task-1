@@ -10,6 +10,7 @@ function RadioButton({ rest }) {
         <span key={i}>
           <label>{g}</label>
           <input
+            className="radioButtonInput"
             value={g}
             type={rest.type}
             checked={rest.value[rest.name] === g ? true : false}
