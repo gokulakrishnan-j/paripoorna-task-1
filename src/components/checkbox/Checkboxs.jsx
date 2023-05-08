@@ -2,7 +2,6 @@ import React from "react";
 import "./Checkbox.css";
 
 function Checkboxs({ rest }) {
-  console.log(rest.value);
   return (
     <div>
       <div className="checkBox">

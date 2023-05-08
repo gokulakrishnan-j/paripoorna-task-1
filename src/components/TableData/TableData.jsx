@@ -1,10 +1,10 @@
 import React from "react";
+import "./TableData.css";
 
-function TableData({ data, icon }) {
-  console.log();
+function TableData({ data }) {
   return (
     <>
-      <td className="td">{data || icon}</td>
+      <td className="td">{data}</td>
     </>
   );
 }

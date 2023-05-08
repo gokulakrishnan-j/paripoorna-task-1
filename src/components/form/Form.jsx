@@ -6,7 +6,9 @@ import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
 import NumbersIcon from "@mui/icons-material/Numbers";
 import FormControl from "../Formcontrol/FormControl";
-import { API } from "../../Api/connect";
+import { initialState, reducer } from "../Redux/Redux";
+import { useReducer } from "react";
+import { getData, deleteUser, editUser, createUser } from "../../Api/User/User";
 
 // Using yup for deep validation
 const formValidationSchema = yup.object({
@@ -15,50 +17,79 @@ const formValidationSchema = yup.object({
   age: yup.number().required("Fill the age"),
   branch: yup.string().required("Select branch"),
   gender: yup.string().required("Select gender"),
-  department: yup.array().required("Select term"),
+  department: yup
+    .array()
+    .min(1, "Seletct department")
+    .required("Select department"),
 });
 
-function Form() {
-  // Created useState to get data from server then send it to the table
-  const [state, setState] = useState([]);
+let state;
 
-  //Function to get data
-  const getData = () => {
-    // Using fetch(promise) to get data
-    fetch(`${API}/userData`)
-      .then((data) => data.json())
-      .then((userData) => setState(userData));
-  };
+function Form() {
+  // Subscribing
+  const [reduxState, dispaich] = useReducer(reducer, initialState);
+  // Setting boolean value for edit
+  const [edit, setEdit] = useState(false);
+
+  useEffect(() => {
+    state = {
+      dispaich: dispaich,
+      reduxState: reduxState,
+    };
+  }, []);
+
   // UseEffect is used to call the function at first render that will help to get old data from server
   useEffect(() => {
     getData();
   }, []);
 
-  //Formik for validation
-  const { handleBlur, handleChange, handleSubmit, errors, touched, values } =
-    useFormik({
-      initialValues: {
-        name: "",
-        email: "",
-        age: "",
-        branch: "",
-        gender: "",
-        department: "",
-      },
-      onSubmit: (value, { resetForm }) => {
-        // Posting a data to data base by using fetch
-        fetch(`${API}/userData`, {
-          method: "POST",
-          body: JSON.stringify(value),
-          headers: { "Content-Type": "application/json" },
-        }) // After completion of posting data get function will call
-          .then(() => getData());
+  // calling delete function when delete state is true
+  if (reduxState.deleteData !== null) {
+    deleteUser(reduxState.deleteData._id);
+  }
 
-        // After submission of data form will reset
-        resetForm({});
-      },
-      validationSchema: formValidationSchema,
-    });
+  //Formik for validation
+
+  const {
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    errors,
+    touched,
+    values,
+    setValues,
+  } = useFormik({
+    initialValues: reduxState.editData,
+    onSubmit: (value, { resetForm }) => {
+      if (edit) {
+        // edit operation
+        const editValues = {
+          name: value.name,
+          email: value.email,
+          age: value.age,
+          branch: value.branch,
+          gender: value.gender,
+          department: value.department,
+        };
+        setEdit(editUser(value._id, editValues));
+      } else {
+        // Posting a data to data base by using fetch
+        createUser(value);
+      }
+      // After submission of data the form will reset
+      resetForm({});
+    },
+    validationSchema: formValidationSchema,
+  });
+
+  // Setting edit value to field when an edit  state is true
+  useEffect(() => {
+    if (reduxState.editData.name) {
+      setValues(reduxState.editData);
+      setEdit(true);
+    }
+  }, [reduxState.editData]);
+
   // Branch
   const options = [
     "-- Select --",
@@ -71,14 +102,14 @@ function Form() {
   const genders = ["Female", "Male", "Other"];
   // Table heading
   const tableHead = [
+    "S.No",
     "Name",
     "Email id",
     "Age",
     "Branch",
     "Department",
     "Gender",
-    "Edit",
-    "Delete",
+    "Edit & Delete",
   ];
   // Department
   const department = ["ECE", "ME", "EEE", "CE"];
@@ -164,18 +195,24 @@ function Form() {
           lengthErr={"Select only two department"}
         />
         {/* Button field*/}
-        <FormControl type={"submit"} condition={"button"} />
+        <FormControl
+          type={"submit"}
+          value={edit ? "Edit" : "Submit"}
+          condition={"button"}
+        />
       </form>
       <div className="tableBox">
         {/* Table field*/}
         <FormControl
           condition={"tablehead"}
           tableHeadData={tableHead}
-          tableBodyData={state}
+          tableBodyData={reduxState.getData}
+          edit={dispaich}
+          deletes={dispaich}
         />
       </div>
     </div>
   );
 }
-
+export { state };
 export default Form;

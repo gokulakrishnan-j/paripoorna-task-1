@@ -6,7 +6,7 @@ function Button({ rest }) {
     <div>
       {/* Submit button*/}
       <button className="button" type={rest.type}>
-        {rest.type}
+        {rest.value}
       </button>
     </div>
   );

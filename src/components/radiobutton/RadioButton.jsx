@@ -2,7 +2,6 @@ import React from "react";
 import "./Radiobutton.css";
 
 function RadioButton({ rest }) {
-  console.log(rest.value[rest.name]);
   return (
     <div>
       {/* Gender field*/}

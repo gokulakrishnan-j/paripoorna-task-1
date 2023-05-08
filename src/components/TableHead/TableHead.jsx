@@ -1,4 +1,5 @@
 import React from "react";
+import "./TableHead.css";
 
 function TableHead({ data }) {
   return (
