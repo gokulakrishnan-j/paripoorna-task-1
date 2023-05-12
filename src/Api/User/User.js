@@ -3,14 +3,16 @@ import { API } from "../Connect/connect";
 
 export const getData = () => {
   // Using fetch(promise) to get data
-  fetch(`${API}/user/v1/userData`)
+  fetch(`${API}/user`)
     .then((data) => data.json())
-    .then((userData) => state.dispaich({ type: "getdata", payload: userData }));
+    .then((userData) =>
+      state.dispaich({ type: "getdata", payload: userData.message })
+    );
 };
 
 export const deleteUser = (id) => {
   // Deleting a user
-  fetch(`${API}/user/v1/deleteUser/${id}`, {
+  fetch(`${API}/user/${id}`, {
     method: "DELETE",
   })
     // Making null edit state after completion of edit operation
@@ -19,7 +21,7 @@ export const deleteUser = (id) => {
 };
 
 export const editUser = (id, editValues) => {
-  fetch(`${API}/user/v1/editData/${id}`, {
+  fetch(`${API}/user/${id}`, {
     method: "PUT",
     body: JSON.stringify(editValues),
     headers: { "Content-Type": "application/json" },
@@ -29,7 +31,7 @@ export const editUser = (id, editValues) => {
 };
 
 export const createUser = (value) => {
-  fetch(`${API}/user/v1/userData`, {
+  fetch(`${API}/user`, {
     method: "POST",
     body: JSON.stringify(value),
     headers: { "Content-Type": "application/json" },
